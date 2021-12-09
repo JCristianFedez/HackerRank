@@ -9,6 +9,28 @@ import java.util.Scanner;
 
 /**
  * https://www.hackerrank.com/challenges/java-priority-queue/problem?isFullScreen=false
+ *
+ * Input:
+12
+ENTER John 3.75 50
+ENTER Mark 3.8 24
+ENTER Shafaet 3.7 35
+SERVED
+SERVED
+ENTER Samiha 3.85 36
+SERVED
+ENTER Ashley 3.9 42
+ENTER Maria 3.6 46
+ENTER Anik 3.95 49
+ENTER Dan 3.95 50
+SERVED
+ *
+ *
+ * Output:
+Dan
+Ashley
+Shafaet
+Maria
  */
 
 class Student {
@@ -33,6 +55,16 @@ class Student {
     public double getCgpa() {
         return cgpa;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Student{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", cgpa=").append(cgpa);
+        sb.append('}');
+        return sb.toString();
+    }
 }
 
 class Priorities {
@@ -42,31 +74,26 @@ class Priorities {
                 Comparator.comparing(Student::getCgpa).reversed().
                         thenComparing(Student::getName)
                         .thenComparing(Student::getId));
-        List<Student> students = new ArrayList<>();
+        final List<Student> students = new ArrayList<>();
         for (String e : events) {
-            Scanner in = new Scanner(e);
-            String event = in.next();
-            if (event.equals("ENTER")) {
-                String name = in.next();
-                float cgpa = in.nextFloat();
-                int token = in.nextInt();
+            final String[] row = e.split(" ");
+            if (row[0].equals("ENTER")) {
+                final int id = Integer.parseInt(row[3]);
+                final String name = row[1];
+                final double cgpa = Double.parseDouble(row[2]);
 
-                final Student student = new Student(token, name, cgpa);
+                final Student student = new Student(id, name, cgpa);
                 studentPriorityQueue.add(student);
-            } else if (event.equals("SERVED")) {
+            } else if (row[0].equals("SERVED")) {
                 studentPriorityQueue.poll();
             }
-            in.close();
         }
         Student first = studentPriorityQueue.poll();
-        if (first != null) {
-            while (first != null) {
-                students.add(first);
-                first = studentPriorityQueue.poll();
-            }
+        while (first != null) {
+            students.add(first);
+            first = studentPriorityQueue.poll();
         }
         return students;
-
     }
 }
 
