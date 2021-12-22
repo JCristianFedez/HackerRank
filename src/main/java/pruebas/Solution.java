@@ -1,61 +1,48 @@
 package pruebas;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
+import java.io.IOException;
+
 
 class Result {
 
     /*
-     * Complete the 'miniMaxSum' function below.
+     * Complete the 'palindromeIndex' function below.
      *
-     * The function accepts INTEGER_ARRAY arr as parameter.
+     * The function is expected to return an INTEGER.
+     * The function accepts STRING s as parameter.
      */
 
-    public static void miniMaxSum(List<Integer> arr) {
-        final int min = Collections.min(arr);
-        final int max = Collections.max(arr);
-        boolean dontSumNumberMax = true;
-        boolean dontSumNumberMin = true;
-        int sumMax = 0;
-        int sumMin = 0;
+    public static int palindromeIndex(String s) {
 
-        for (int n : arr) {
-            if (n == min && dontSumNumberMin) {
-                dontSumNumberMin = false;
-            } else {
-                sumMin += n;
-            }
+        if (reverse(s).equals(s)) {
+            return -1;
+        }
 
-            if (n == max && dontSumNumberMax) {
-                dontSumNumberMax = false;
-            } else {
-                sumMax += n;
+        for (int i = 0; i < s.length(); i++) {
+            final StringBuilder sb = new StringBuilder(s);
+            sb.deleteCharAt(i);
+            final String uno = reverse(sb.toString());
+            final String dos = sb.toString();
+            if (reverse(sb.toString()).equals(sb.toString())) {
+                return i;
             }
         }
 
-        final StringBuilder sb = new StringBuilder();
-        sb.append(sumMin).append(" ").append(sumMax);
-        System.out.println(sb);
+        return -1;
+    }
+
+    private static String reverse(String s) {
+        final StringBuilder sb = new StringBuilder(s);
+        return sb.reverse().toString();
     }
 
 }
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                .map(Integer::parseInt)
-                .collect(toList());
-
-        Result.miniMaxSum(arr);
-
-        bufferedReader.close();
+        final String s = "123421";
+        System.out.println(Result.palindromeIndex(s));
     }
 }
+
