@@ -1,4 +1,4 @@
-package Algorithms.Implementation.BeautifulTriplets;
+package Algorithms.Implementation.beautifulTriplets;
 
 /*
 https://www.hackerrank.com/challenges/beautiful-triplets/problem

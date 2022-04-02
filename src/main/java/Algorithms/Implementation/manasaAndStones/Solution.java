@@ -1,4 +1,4 @@
-package algorithms.implementation.manasaAndStones;
+package Algorithms.Implementation.manasaAndStones;
 
 /*
 https://www.hackerrank.com/challenges/manasa-and-stones/problem
