@@ -2,12 +2,11 @@ package Algorithms.Implementation.ServiceLane;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-//TODO: Por terminar
-//https://www.hackerrank.com/challenges/service-lane/problem
 /**
  * Sample Input
  *
@@ -30,25 +29,32 @@ import java.util.stream.Collectors;
  */
 public class Solution {
     public static void main(String[] args) {
-        final Scanner scanner = new Scanner(System.in);
-        scanner.nextInt();
-        final int cantCases = scanner.nextInt();
+        try (final Scanner scanner = new Scanner(System.in)) {
+            scanner.nextInt();
+            final int cantCases = scanner.nextInt();
+            scanner.nextLine();
 
-        scanner.nextLine();
-
-        final List<Integer> widths = Arrays.stream(scanner.nextLine().split(" "))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-        final List<List<Integer>> cases = new ArrayList<>();
-
-        for (int i = 0; i < cantCases; i++) {
-            final String newLine = scanner.nextLine();
-            final List<Integer> newCase = Arrays.stream(newLine.split(" "))
+            final List<Integer> widths = Arrays.stream(scanner.nextLine().split(" "))
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-            cases.add(newCase);
+            final List<List<Integer>> allCasses = new ArrayList<>();
+
+            for (int i = 0; i < cantCases; i++) {
+                final String newLine = scanner.nextLine();
+                final List<Integer> newCase = Arrays.stream(newLine.split(" "))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList());
+                allCasses.add(newCase);
+            }
+            allCasses.forEach(cases -> System.out.println(result(widths, cases)));
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-        System.out.println(widths);
-        System.out.println(cases);
+
+    }
+
+    private static int result (final List<Integer> widths, final List<Integer> cases) {
+        return Collections.min(widths.subList(cases.get(0), cases.get(1) + 1));
     }
 }
