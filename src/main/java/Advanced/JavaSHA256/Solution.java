@@ -1,9 +1,10 @@
 package Advanced.JavaSHA256;
 
-import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+
+import javax.xml.bind.DatatypeConverter;
 
 /*
 https://www.hackerrank.com/challenges/sha-256/problem
@@ -16,13 +17,14 @@ OUTPUT
 
  */
 public class Solution {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        final Scanner scanner = new Scanner(System.in);
-        final String str = scanner.next();
-        final MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(str.getBytes());
-        final byte[] digest = md.digest();
-        final String myHash = DatatypeConverter.printHexBinary(digest).toLowerCase();
-        System.out.println(myHash);
-    }
+
+  public static void main(String[] args) throws NoSuchAlgorithmException {
+    final Scanner scanner = new Scanner(System.in);
+    final String str = scanner.next();
+    final MessageDigest md = MessageDigest.getInstance("SHA-256");
+    md.update(str.getBytes());
+    final byte[] digest = md.digest();
+    final String myHash = DatatypeConverter.printHexBinary(digest).toLowerCase();
+    System.out.println(myHash);
+  }
 }

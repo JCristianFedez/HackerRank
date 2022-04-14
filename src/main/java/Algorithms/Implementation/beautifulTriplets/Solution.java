@@ -13,6 +13,8 @@ Sample Output
 3
  */
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,57 +25,56 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-
 class Result {
 
-    /*
-     * Complete the 'beautifulTriplets' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts following parameters:
-     *  1. INTEGER d
-     *  2. INTEGER_ARRAY arr
-     */
+  /*
+   * Complete the 'beautifulTriplets' function below.
+   *
+   * The function is expected to return an INTEGER.
+   * The function accepts following parameters:
+   *  1. INTEGER d
+   *  2. INTEGER_ARRAY arr
+   */
 
-    public static int beautifulTriplets(int d, List<Integer> arr) {
-        final Map<Integer, Integer> map = new HashMap<>();
-        int cnt = 0;
-        for (int a : arr) {
-            int aux = map.getOrDefault(a, 0);
-            map.put(a, ++aux);
+  public static int beautifulTriplets(int d, List<Integer> arr) {
+    final Map<Integer, Integer> map = new HashMap<>();
+    int cnt = 0;
+    for (int a : arr) {
+      int aux = map.getOrDefault(a, 0);
+      map.put(a, ++aux);
 
-            int first = map.getOrDefault(a - d, 0);
-            int last = map.getOrDefault(a - (2 * d), 0);
-            cnt += first * last;
-        }
-        return cnt;
+      int first = map.getOrDefault(a - d, 0);
+      int last = map.getOrDefault(a - (2 * d), 0);
+      cnt += first * last;
     }
+    return cnt;
+  }
 
 }
 
 public class Solution {
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+  public static void main(String[] args) throws IOException {
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int n = Integer.parseInt(firstMultipleInput[0]);
+    String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-        int d = Integer.parseInt(firstMultipleInput[1]);
+    int n = Integer.parseInt(firstMultipleInput[0]);
 
-        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                .map(Integer::parseInt)
-                .collect(toList());
+    int d = Integer.parseInt(firstMultipleInput[1]);
 
-        int result = Result.beautifulTriplets(d, arr);
+    List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+        .map(Integer::parseInt)
+        .collect(toList());
 
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
+    int result = Result.beautifulTriplets(d, arr);
 
-        bufferedReader.close();
-        bufferedWriter.close();
-    }
+    bufferedWriter.write(String.valueOf(result));
+    bufferedWriter.newLine();
+
+    bufferedReader.close();
+    bufferedWriter.close();
+  }
 }
 

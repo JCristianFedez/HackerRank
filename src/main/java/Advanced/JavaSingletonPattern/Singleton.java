@@ -1,17 +1,18 @@
 package Advanced.JavaSingletonPattern;
 
-class Singleton{
+class Singleton {
 
-    public static String str;
+  public static String str;
 
-    private Singleton() {
-    }
+  private Singleton() {
+  }
 
-    private static final class SingletonHolder {
-        static final Singleton instance = new Singleton();
-    }
+  private static final class SingletonHolder {
 
-    public Singleton getSingleInstance(){
-        return SingletonHolder.instance;
-    }
+    static final Singleton instance = new Singleton();
+  }
+
+  public Singleton getSingleInstance() {
+    return SingletonHolder.instance;
+  }
 }
