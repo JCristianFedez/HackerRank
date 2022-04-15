@@ -30,7 +30,7 @@ class Add {
         .replace("]", "");
 
     sb.append(str).append("=").append(sum);
-    System.out.println(sb.toString());
+    System.out.println(sb);
   }
 }
 

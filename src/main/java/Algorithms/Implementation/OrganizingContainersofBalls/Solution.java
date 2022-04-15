@@ -24,19 +24,9 @@ import java.util.stream.Stream;
 /**
  * Sample Input 1
  * <p>
- * 2
- * 3
- * 1 3 1
- * 2 1 2
- * 3 3 3
- * 3
- * 0 2 1
- * 1 1 1
- * 2 0 0
- * Sample Output 1
+ * 2 3 1 3 1 2 1 2 3 3 3 3 0 2 1 1 1 1 2 0 0 Sample Output 1
  * <p>
- * Impossible
- * Possible
+ * Impossible Possible
  */
 class Result {
 

@@ -214,10 +214,7 @@ public class Solution {
   private static void createEdge(Tree parentNode, Integer nodeIdentifier) {
 
     Set<Integer> nodeEdges = nodesMap.get(nodeIdentifier);
-    boolean hasChild = false;
-    if (nodeEdges != null && !nodeEdges.isEmpty()) {
-      hasChild = true;
-    }
+    boolean hasChild = nodeEdges != null && !nodeEdges.isEmpty();
 
     if (hasChild) {
       TreeNode node = new TreeNode(nodeValues[nodeIdentifier - 1], nodeColors[nodeIdentifier - 1], parentNode.getDepth() + 1);
