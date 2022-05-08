@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' debug="false" threshold="debug">
+
+  <!--
+    NOTAS:
+
+    - Después de realizar cambios en este fichero, debe grabarse y reiniciar la
+    aplicación para que los cambios surtan efecto.
+  -->
+
+  <!-- ************ Appenders ************ -->
+
+  <!-- Appender para depuración de aplicación web. -->
+  <appender name="DEBUG_LOGFILE" class="org.apache.log4j.DailyRollingFileAppender">
+    <!-- Nombre del fichero de logger, ruta relativa al root de la app web o ruta absoluta. -->
+    <param name="File" value="logs/debug.logger" />
+    <param name="DatePattern" value="'.'yyyyMMdd" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- Formato: [fecha] [thread] [prioridad] logger - mensaje intro -->
+      <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%t] [%-5p] %c{1} - %m%n" />
+    </layout>
+  </appender>
+
+  <!-- Appender para registrar errores -->
+  <appender name="ERRORS_LOGFILE" class="org.apache.log4j.DailyRollingFileAppender">
+    <!-- Nombre del fichero de logger, ruta relativa al root de la app web o ruta absoluta. -->
+    <param name="File" value="logs/errors.logger" />
+    <param name="DatePattern" value="'.'yyyyMMdd" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- Formato: [fecha] [thread] [prioridad] logger - mensaje intro -->
+      <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%t] [%-5p] %c{1} - %m%n" />
+    </layout>
+    <!-- Filtros: sólo niveles de error que se quieren registrar -->
+    <filter class="org.apache.log4j.varia.LevelMatchFilter">
+      <param name="LevelToMatch" value="FATAL" />
+      <param name="AcceptOnMatch" value="true" />
+    </filter>
+    <filter class="org.apache.log4j.varia.LevelMatchFilter">
+      <param name="LevelToMatch" value="ERROR" />
+      <param name="AcceptOnMatch" value="true" />
+    </filter>
+    <!-- Cierre de la cadena de filtros: deniega todos los no aceptados -->
+    <filter class="org.apache.log4j.varia.DenyAllFilter" />
+  </appender>
+
+  <!-- Appender para registrar informacion -->
+  <appender name="INFO_LOGFILE" class="org.apache.log4j.DailyRollingFileAppender">
+    <!-- Nombre del fichero de logger, ruta relativa al root de la app web o ruta absoluta. -->
+    <param name="File" value="logs/info.logger" />
+    <param name="DatePattern" value="'.'yyyyMMdd" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- Formato: [fecha] [thread] [prioridad] logger - mensaje intro -->
+      <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%t] [%-5p] %m%n" />
+    </layout>
+    <!-- Filtros: sólo niveles de informacion que se quieren registrar -->
+    <filter class="org.apache.log4j.varia.LevelMatchFilter">
+      <param name="LevelToMatch" value="INFO" />
+      <param name="AcceptOnMatch" value="true" />
+    </filter>
+    <!-- Cierre de la cadena de filtros: deniega todos los no aceptados -->
+    <filter class="org.apache.log4j.varia.DenyAllFilter" />
+  </appender>
+
+  <!-- Appender para logger raíz: se usa para mostrar la salida por consola de todos los demás. -->
+  <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+    <!-- Para activar la salida por consola, cambiar "OFF" por "ALL". -->
+    <param name="Threshold" value="ON" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- Formato: [fecha] [thread] [prioridad] logger - mensaje intro -->
+      <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%t] [%-5p] %c{1} - %m%n" />
+    </layout>
+  </appender>
+
+  <!-- Eliminamos salida de Jakarta commons digester -->
+  <logger name="org.apache.commons">
+    <level value="OFF" />
+  </logger>
+
+  <logger name="sun.rmi">
+    <level value="OFF" />
+  </logger>
+
+  <!-- Logger raíz: se usa para características comunes de los demás loggers -->
+  <root>
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="ERRORS_LOGFILE" />
+    <appender-ref ref="DEBUG_LOGFILE" />
+    <appender-ref ref="INFO_LOGFILE" />
+  </root>
+
+</log4j:configuration>
